@@ -49,7 +49,7 @@ void HMDHotplugCallback_func(bool bArrive) {
 int main(int argc, char **argv) {
 
     //------------------Parse arg--------------------
-    OptionParser paser("Indemind_data_collect, press Q to exit");
+    OptionParser paser("Indemind_data_collect");
     auto help = paser.add<Switch>("h", "help", "use -h to see help!");
     auto save_directory = paser.add<Value<std::string>>("d", "directory", "directoy to save the data", "./");
     auto config_file = paser.add<Value<std::string>>("c", "config", "config file");

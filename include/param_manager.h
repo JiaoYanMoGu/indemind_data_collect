@@ -8,6 +8,7 @@
 #include "parameters.h"
 #include "debug_definitions.h"
 #include <fstream>
+#include <iomanip>
 
 
 using std::endl;
@@ -63,8 +64,6 @@ public:
         std::string temp;
         getline(in_stream,temp);//#Indemind Calibration File
         in_stream >> temp;//cam0:
-        in_stream >> temp >> cam0_._width;//width: width
-        in_stream >> temp >> cam0_._height;//height: height
         in_stream >> temp;// T_BS:
         ReadEach(4, 4, cam0_._TSC, in_stream);
         in_stream >> temp;// R:
@@ -77,8 +76,6 @@ public:
         ReadEach(1, 4, cam0_._D, in_stream);
 
         in_stream >> temp;//cam1:
-        in_stream >> temp >> cam1_._width;//width: width
-        in_stream >> temp >> cam1_._height;//height: height
         in_stream >> temp;// T_BS:
         ReadEach(4, 4, cam1_._TSC, in_stream);
         in_stream >> temp;// R:
@@ -120,10 +117,9 @@ public:
         }
         of << "#Indemind Calibration File" << endl;
 
+        of<<std::setprecision(10);
         // cam0
         of << "cam0:\n";
-        of << "width: " << cam0_._width << endl;
-        of << "height: " << cam0_._height << endl;
         of << "T_BS:\n";
         PrintEach(4, 4, cam0_._TSC, of);
         of << "R:\n";
@@ -138,8 +134,6 @@ public:
 
         // cam1
         of << "cam1:\n";
-        of << "width: " << cam1_._width << endl;
-        of << "height: " << cam1_._height << endl;
         of << "T_BS:\n";
         PrintEach(4, 4, cam1_._TSC, of);
         of << "R:\n";
@@ -172,17 +166,17 @@ public:
 
         // imu
         of << "IMU:\n";
-        of << "a_max: " << imu_._a_max << endl;
-        of << "g_max: " << imu_._g_max << endl;
-        of << "sigma_g_c: " << imu_._sigma_g_c << endl;
-        of << "sigma_a_c: " << imu_._sigma_a_c << endl;
-        of << "sigma_bg: " << imu_._sigma_bg << endl;
-        of << "sigma_ba: " << imu_._sigma_ba << endl;
-        of << "sigma_gw_c: " << imu_._sigma_gw_c << endl;
-        of << "sigma_aw_c: " << imu_._sigma_aw_c << endl;
-        of << "tau: " << imu_._tau << endl;
-        of << "g: " << imu_._g << endl;
-        of << "a0: " << endl;
+        of << "a_max[m/s^2]: " << imu_._a_max << endl;
+        of << "g_max[rad/s]: " << imu_._g_max << endl;
+        of << "sigma_g_c[rad/s/sqrt(Hz)]: " << imu_._sigma_g_c << endl;
+        of << "sigma_a_c[m/s^2/sqrt(Hz)]: " << imu_._sigma_a_c << endl;
+        of << "sigma_bg[rad/s]: " << imu_._sigma_bg << endl;
+        of << "sigma_ba[m/s^2]: " << imu_._sigma_ba << endl;
+        of << "sigma_gw_c[rad/s^2/sqrt(Hz)]: " << imu_._sigma_gw_c << endl;
+        of << "sigma_aw_c[m/s^2/sqrt(Hz)]: " << imu_._sigma_aw_c << endl;
+        of << "tau[s]: " << imu_._tau << endl;
+        of << "g[m/s^2]: " << imu_._g << endl;
+        of << "a0[m/s^2]: " << endl;
         PrintEach(1, 4, imu_._a0, of);
         of << "T_BS: " << endl;
         PrintEach(4, 4, imu_._T_BS, of);
